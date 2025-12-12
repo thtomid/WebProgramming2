@@ -24,5 +24,14 @@
         {
             echo "Brand: {$this->brand}, Model: {$this->model}, Year: {$this->year}, Price: {$this->price}\n";
         }
+        // Method to compare vehicles based on a selected criteria
+        public function compare(Vehicle $otherVehicle, $criteria='price')
+        {
+            switch($criteria){
+                case 'price':
+                    if 
+                case 'year':
+            }
+        }
     }
 ?>
