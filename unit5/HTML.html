@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vehicle Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .vehicle-info {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Add New Vehicle</h2>
+    <form method="post">
+        <label>Vehicle Type:</label>
+        <select name="type" required>
+            <option value="car">Car</option>
+            <option value="truck">Truck</option>
+            <option value="motorcycle">Motorcycle</option>
+        </select><br><br>
+
+        <label>Brand:</label>
+        <input type="text" name="brand" required><br><br>
+
+        <label>Model:</label>
+        <input type="text" name="model" required><br><br>
+
+        <label>Year:</label>
+        <input type="number" name="year" required><br><br>
+
+        <label>Price:</label>
+        <input type="number" name="price" required><br><br>
+
+        <label>Number of Doors (for Car):</label>
+        <input type="number" name="numberOfDoors"><br><br>
+
+        <label>Cargo Capacity in lbs (for Truck):</label>
+        <input type="number" name="cargoCapacity"><br><br>
+
+        <label>Handlebar Type (for Motorcycle):</label>
+        <input type="text" name="handlebarType"><br><br>
+
+        <input type="submit" value="Add Vehicle">
+    </form>
+</body>
+</html>

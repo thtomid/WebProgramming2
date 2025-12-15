@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Dealership Vehicle Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        
+        .form-section, .results-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .form-section {
+            border-right: 1px solid #eaeaea;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .vehicle-type-fields {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 4px solid #3498db;
+            display: none;
+        }
+        
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .sample-vehicles {
+            margin-top: 30px;
+        }
+        
+        .vehicle-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .vehicle-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .vehicle-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .detail-item {
+            padding: 8px;
+            background-color: white;
+            border-radius: 4px;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .detail-value {
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+        
+        .comparison-results {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .vehicle-type {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .car-type { background-color: #d4edda; color: #155724; }
+        .truck-type { background-color: #d1ecf1; color: #0c5460; }
+        .motorcycle-type { background-color: #f8d7da; color: #721c24; }
+        
+        .stats {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eaeaea;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            .form-section {
+                border-right: none;
+                border-bottom: 1px solid #eaeaea;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Car Dealership Vehicle Management</h1>
+            <p>Manage your diverse fleet of vehicles with our comprehensive system</p>
+        </header>
+        
+        <div class="content-wrapper">
+            <div class="form-section">
+                <h2>Add New Vehicle</h2>
+                <form method="POST" action="">
+                    <div class="form-group">
+                        <label for="vehicleType">Vehicle Type</label>
+                        <select id="vehicleType" name="vehicleType" required>
+                            <option value="">Select Vehicle Type</option>
+                            <option value="Car">Car</option>
+                            <option value="Truck">Truck</option>
+                            <option value="Motorcycle">Motorcycle</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="brand">Brand</label>
+                        <input type="text" id="brand" name="brand" placeholder="e.g., Toyota, Ford, Honda" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="model">Model</label>
+                        <input type="text" id="model" name="model" placeholder="e.g., Camry, F-150, CBR600" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="year">Manufacturing Year</label>
+                        <input type="number" id="year" name="year" min="1900" max="2024" value="2023" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="price">Price ($)</label>
+                        <input type="number" id="price" name="price" min="0" step="100" placeholder="e.g., 25000" required>
+                    </div>
+                    
+                    <!-- Car-specific fields -->
+                    <div id="carFields" class="vehicle-type-fields">
+                        <div class="form-group">
+                            <label for="numberOfDoors">Number of Doors</label>
+                            <select id="numberOfDoors" name="numberOfDoors">
+                                <option value="2">2 Doors</option>
+                                <option value="4" selected>4 Doors</option>
+                                <option value="5">5 Doors (Hatchback)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Truck-specific fields -->
+                    <div id="truckFields" class="vehicle-type-fields">
+                        <div class="form-group">
+                            <label for="cargoCapacity">Cargo Capacity (lbs)</label>
+                            <input type="number" id="cargoCapacity" name="cargoCapacity" min="0" step="100" placeholder="e.g., 2000">
+                        </div>
+                    </div>
+                    
+                    <!-- Motorcycle-specific fields -->
+                    <div id="motorcycleFields" class="vehicle-type-fields">
+                        <div class="form-group">
+                            <label for="handlebarType">Handlebar Type</label>
+                            <select id="handlebarType" name="handlebarType">
+                                <option value="Standard">Standard</option>
+                                <option value="Ape Hanger">Ape Hanger</option>
+                                <option value="Clip-on">Clip-on</option>
+                                <option value="Beach Bar">Beach Bar</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn" name="submit">Add Vehicle to Inventory</button>
+                </form>
+                
+                <div class="sample-vehicles">
+                    <h2>Sample Vehicles in Inventory</h2>
+                    <p>These are pre-loaded sample vehicles demonstrating the system functionality:</p>
+                    <div id="sampleVehiclesContainer">
+                        <!-- Sample vehicles will be displayed here by PHP -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="results-section">
+                <h2>Vehicle Comparison</h2>
+                <div class="comparison-results">
+                    <p>Select two vehicles and a comparison criterion to compare them:</p>
+                    <form method="POST" action="" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                        <div class="form-group">
+                            <label for="compareVehicle1">Vehicle 1 (ID)</label>
+                            <input type="number" id="compareVehicle1" name="compareVehicle1" min="1" placeholder="Vehicle ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="compareVehicle2">Vehicle 2 (ID)</label>
+                            <input type="number" id="compareVehicle2" name="compareVehicle2" min="1" placeholder="Vehicle ID">
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label for="comparisonCriterion">Comparison Criterion</label>
+                            <select id="comparisonCriterion" name="comparisonCriterion">
+                                <option value="price">Price</option>
+                                <option value="year">Model Year</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn" name="compare" style="grid-column: span 2;">Compare Vehicles</button>
+                    </form>
+                    <div id="comparisonResults">
+                        <!-- Comparison results will appear here -->
+                    </div>
+                </div>
+                
+                <div id="inventoryResults">
+                    <!-- Vehicle inventory and user-added vehicles will appear here -->
+                </div>
+                
+                <div class="stats">
+                    <h3>Dealership Statistics</h3>
+                    <div id="statsContainer">
+                        <!-- Statistics will be loaded here by PHP -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Car Dealership Vehicle Management System &copy; <?php echo date('Y'); ?></p>
+        </footer>
+    </div>
+
+    <script>
+        // Show/hide vehicle-specific fields based on vehicle type selection
+        document.getElementById('vehicleType').addEventListener('change', function() {
+            // Hide all vehicle-specific fields first
+            document.getElementById('carFields').style.display = 'none';
+            document.getElementById('truckFields').style.display = 'none';
+            document.getElementById('motorcycleFields').style.display = 'none';
+            
+            // Show the relevant fields based on selection
+            if (this.value === 'Car') {
+                document.getElementById('carFields').style.display = 'block';
+            } else if (this.value === 'Truck') {
+                document.getElementById('truckFields').style.display = 'block';
+            } else if (this.value === 'Motorcycle') {
+                document.getElementById('motorcycleFields').style.display = 'block';
+            }
+        });
+        
+        // Trigger change event on page load if a vehicle type is already selected
+        document.addEventListener('DOMContentLoaded', function() {
+            const vehicleTypeSelect = document.getElementById('vehicleType');
+            if (vehicleTypeSelect.value) {
+                vehicleTypeSelect.dispatchEvent(new Event('change'));
+            }
+        });
+    </script>
+</body>
+</html>

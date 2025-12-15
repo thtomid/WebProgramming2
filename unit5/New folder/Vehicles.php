@@ -29,8 +29,13 @@
         {
             switch($criteria){
                 case 'price':
-                    if 
+                    printf("%-10s %-10s\n", $this->brand, $otherVehicle->brand);
+                    printf("%-10s %-10s\n", $this->model, $otherVehicle->model);
+                    printf("%-10d %-10d\n", $this->price, $otherVehicle->price);
                 case 'year':
+                    printf("%-10s %-10s\n", $this->brand, $otherVehicle->brand);
+                    printf("%-10s %-10s\n", $this->model, $otherVehicle->model);
+                    printf("%-10d %-10d\n", $this->year, $otherVehicle->year);
             }
         }
     }
